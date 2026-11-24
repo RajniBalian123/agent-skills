@@ -8,13 +8,55 @@ then a short workflow it follows.
 
 These are personal, generic versions of patterns I authored for my team's
 skill library — rewritten here without any company-specific tooling, project
-names, or internal references. Install the whole set, or one skill at a time,
-with the skills CLI:
+names, or internal references. See [How to install](#how-to-install) below.
+
+## How to install
+
+**Prerequisites:** Node.js 22.20 or later — check with `node --version`.
+`npx` ships with Node, so there is nothing else to install first.
+
+**Install the whole set.** Run this from the root of the project where you
+want the skills:
 
 ```bash
 npx skills add rajnibalian123/agent-skills
-npx skills add rajnibalian123/agent-skills --skill issue-writer
 ```
+
+The CLI asks which agents to install for (Claude Code, Codex, Cursor, and
+others) and writes one copy into the project's skills directory, linked into
+each chosen agent. Add `-g` to install once for your user instead of one
+project, and `-y` to accept the defaults without prompting.
+
+**Install one skill only:**
+
+```bash
+npx skills add rajnibalian123/agent-skills --skill code-review
+```
+
+**Verify it worked:**
+
+```bash
+npx skills list       # skills installed in this project
+npx skills list -g    # skills installed globally
+```
+
+**Manual install (no CLI):** copy a skill's folder — the folder that holds
+its `SKILL.md` — into your agent's skills directory, for example
+`.claude/skills/code-review/` for one project or
+`~/.claude/skills/code-review/` for every project. The agent picks the skill
+up from the `description` in its frontmatter, so the folder name must match
+the skill's `name`.
+
+**Keep them current, remove one:**
+
+```bash
+npx skills update              # update all installed skills
+npx skills remove code-review  # remove one skill
+```
+
+Once installed, use a skill by describing the job in the agent's own terms —
+"review this diff", "turn this scope into an estimate" — and the agent matches
+the `description` and invokes it. No extra configuration is needed.
 
 ## The skills
 
